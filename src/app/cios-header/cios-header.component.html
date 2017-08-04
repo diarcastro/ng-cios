@@ -1,0 +1,29 @@
+<header class="header fixed-top">
+  <div class="header__back">
+    <a href="./">
+      <md-icon>arrow_back</md-icon>
+      <span class="hidden-xs-up hidden-xs">Regresar a Joomla</span>
+    </a>
+  </div>
+  <div class="container header__container">
+    <h1 class="header__title text-center hidden-xs-up hidden-xs">Check In and Check Out System</h1>
+  </div>
+  <div *ngIf="user" class="header__user_info">
+    <div class="row no-margin">
+      <div class="col text-right">
+        <div class="header__user_info__name">{{user.name}}</div>
+        <div class="header__user_info__headquarter">{{user.headquarter.name}}</div>
+        <div class="header__user_info__options" *ngIf="user.permissions.admin">
+          <a href="./index.php?option=com_config&view=component&component=com_cios" target="blank">
+            Opciones
+            <md-icon>settings</md-icon>
+          </a>
+        </div>
+      </div>
+      <div class="col-auto">
+        <img *ngIf="user.avatar" [src]="user.avatar" alt="user.name" class="header__user_info__avatar img-fluid img-thumbnail rounded-circle" />
+      </div>
+    </div>
+
+  </div>
+</header>

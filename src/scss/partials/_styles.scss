@@ -1,0 +1,33 @@
+h2 {
+
+  &.title {
+    color: $color-1;
+    font-size: to-rem(15px);
+    border-bottom: 1px solid $color-1;
+    padding-bottom: to-rem(7px);
+    margin-bottom: to-rem(12px);
+  }
+}
+
+.section-filters {
+  // border-bottom: 1px solid #DDD;
+  min-height: to-rem(62px);
+  padding-top: to-rem(20px);
+  padding-bottom: to-rem(7px);
+  margin-bottom: to-rem(15px);
+  position: relative;
+
+  .mat-select .mat-select-trigger {
+    font-size: 12px;
+  }
+
+  md-paginator {
+    min-height: auto;
+  }
+
+  md-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

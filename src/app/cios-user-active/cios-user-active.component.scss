@@ -1,0 +1,65 @@
+@import '../../scss/partials/_common.scss';
+
+.user {
+  margin-bottom: to-rem(20px);
+
+  &.mat-card {
+    padding: to-rem(10px) to-rem(7px);
+  }
+
+  button.notes {
+    position: absolute;
+    top: to-rem(5px);
+    right: to-rem(5px);
+    opacity: .5;
+    width: 32px;
+    height: 32px;
+    z-index: 2;
+
+    &.active {
+      opacity: 1;
+    }
+    .mat-icon {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 20px;
+    }
+    .badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+    }
+  }
+
+  .avatar {
+    padding: 0;
+  }
+
+  .mat-card-image:first-child {
+    margin: 0;
+  }
+
+
+
+  .mat-sidenav-container {
+    background-color: #FFF;
+  }
+
+  .mat-card-actions {
+    margin: 0;
+  }
+
+  .mat-sidenav {
+    width: 70%;
+    padding: to-rem(7px);
+  }
+}
+
+@media (max-width: 600px) {
+  .user {
+    .mat-card-header {
+      margin: 0;
+    }
+  }
+}

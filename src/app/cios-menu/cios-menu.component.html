@@ -1,0 +1,41 @@
+<div id="menu" class="row">
+
+  <ul class="nav menu flex-column" *ngIf="user">
+    <li *ngIf="user.permissions.create">
+      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <md-icon>assignment_ind</md-icon>
+        <span>Estudiantes</span>
+      </a>
+    </li>
+    <!-- <li *ngIf="user.permissions.create">
+      <a routerLink="notas" routerLinkActive="active">
+        <md-icon>assignment_ind</md-icon>
+        <span>Notas</span>
+      </a>
+    </li> -->
+    <li *ngIf="user.permissions.headquarter">
+      <a routerLink="sedes" routerLinkActive="active">
+        <md-icon>view_quilt</md-icon>
+        <span>Sedes</span>
+      </a>
+    </li>
+    <li *ngIf="user.permissions.staff">
+      <a routerLink="personal" routerLinkActive="active">
+        <md-icon>people</md-icon>
+        <span>Personal</span>
+      </a>
+    </li>
+    <li *ngIf="user.permissions.reports">
+      <a routerLink="reportes" routerLinkActive="active">
+        <md-icon>assignment</md-icon>
+        <span>Reportes</span>
+      </a>
+    </li>
+    <li *ngIf="user.permissions.qr_fix">
+      <a routerLink="fix" routerLinkActive="active">
+        <md-icon>report</md-icon>
+        <span>Fix QR</span>
+      </a>
+    </li>
+  </ul>
+</div>

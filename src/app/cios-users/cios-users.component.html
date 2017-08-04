@@ -1,0 +1,38 @@
+<div class="actions text-right">
+  <button md-button md-raised-button [disabled]="loadingUsers || !someUsersInside()" (click)="checkOutAll()" color="warn" *ngIf="loggedUser && loggedUser.permissions.checkoutbatch">
+    Sacar a todos los usuarios
+    <md-icon class="md-18">exit_to_app</md-icon>
+  </button>
+</div>
+
+<div class="section-filters">
+  <form #filterForm="ngForm" class="row align-items-end">
+    <div class="col-sm-6">
+      <md-input-container>
+        <input mdInput [(ngModel)]="filter.search" name="search" type="text" autocomplete="off" placeholder="Buscar estudiantes">
+      </md-input-container>
+
+      <md-select placeholder="Todas las sedes" class="text-left" [(ngModel)]="filter.headquarter" [ngModelOptions]="{standalone: true}">
+        <md-option>Sedes</md-option>
+        <md-option *ngFor="let hq of headquarters" [value]="hq.id">{{hq.name}}</md-option>
+      </md-select>
+
+      <button md-button md-raised-button color="primary" (click)="searchUsers()">
+        Buscar
+        <md-icon class="md-18">search</md-icon>
+      </button>
+    </div>
+
+    <div class="col-sm-6">
+      <md-paginator *ngIf="filter.pagination" [length]="filter.pagination.total" [pageSize]="filter.pagination.limit" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)" [pageIndex]="filter.pagination.pagesCurrent || 0">
+      </md-paginator>
+    </div>
+  </form>
+  <md-progress-bar mode="indeterminate" *ngIf="loadingUsers" color="primary"></md-progress-bar>
+</div>
+
+
+<div class="row users" *ngIf="users">
+  <cios-user-active *ngFor="let user of filteredUsers()" [user]="user" [loggedUser]="loggedUser" (userUpdated)="onUserUpdated($event)" class="col-sm-4">
+  </cios-user-active>
+</div>

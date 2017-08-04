@@ -1,0 +1,77 @@
+@import '../../scss/partials/_common.scss';
+.header {
+  background-color: rgba($color-2, .95);
+  color: #FFF;
+  min-height: to-rem(80px);
+  z-index: 100;
+  box-shadow: #000 0 3px 10px -5px;
+
+  &__title {
+    margin: 0;
+    padding: to-rem(20px);
+    font-size: to-rem(30px);
+  }
+
+  &__user_info {
+    position: absolute;
+    top: to-rem(10px);
+    right: to-rem(15px);
+
+    &__name {
+      font-weight: bold;
+      font-size: to-rem(16px);
+      margin-top: to-rem(5px);
+    }
+
+    &__headquarter {
+      font-size: to-rem(14px);
+    }
+
+    &__options a {
+      font-size: to-rem(11px);
+      color: #FFF;
+      line-height: 100%;
+
+      md-icon {
+        font-size: to-rem(11px);
+        width: to-rem(11px);
+        vertical-align: text-top;
+      }
+    }
+
+    &__avatar {
+      max-width: to-rem(60px);
+    }
+  }
+
+  &__back {
+    position: absolute;
+    top: to-rem(25px);
+    left: to-rem(15px);
+
+    a {
+      color: #FFF;
+      font-size: to-rem(20px);
+      text-decoration: none;
+      position: relative;
+      left: 0;
+      transition: all .3s;
+      opacity: .7;
+
+      .mat-icon {
+        vertical-align: bottom;
+      }
+
+      &:hover {
+        left: -5px;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .header.fixed-top {
+    position: initial;
+  }
+}

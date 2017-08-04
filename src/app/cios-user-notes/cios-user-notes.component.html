@@ -1,0 +1,26 @@
+<div class="notes" *ngIf="user">
+  <h2 class="title">
+    Notas <span class="badge badge-info">{{user.notes.length}}</span>
+  </h2>
+  <ul class="list-unstyled">
+    <li class="note" *ngFor="let note of user.notes" [hidden]="note.closed">
+      <div class="note-text">
+        <small>{{note.note}}</small>
+        <span class="badge badge-warning" mdTooltip="{{user.dateIn*1000 | date:'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a'}}">
+        {{note.date | moment}}
+        </span>
+      </div>
+      <div class="note-button text-right" *ngIf="note.id">
+        <button type="button" md-button md-raised-button color="success" class="mini" (click)="closeNote(note, user)" mdTooltip="Cerrar nota">
+          <md-icon>done</md-icon>
+        </button>
+      </div>
+    </li>
+    <li>
+      <md-input-container class="w-100">
+        <input mdInput type="text" #newNote placeholder="Nueva nota" maxlength="255" (keyup.enter)="saveNote(newNote, user)">
+        <md-hint align="end">{{newNote.value.length}} / 255</md-hint>
+      </md-input-container>
+    </li>
+  </ul>
+</div>

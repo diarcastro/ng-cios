@@ -1,0 +1,87 @@
+/* You can add global styles to this file, and also import other style files */
+
+// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+// @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+// @import "~@angular/material/prebuilt-themes/purple-green.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+@import '../../node_modules/sweetalert2/src/sweetalert2.scss';
+@import './partials/_common.scss';
+@import './partials/_bootstrap';
+@import './partials/_material.scss';
+@import './partials/_styles.scss';
+
+$footer-height: to-rem(60px);
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto;
+  font-size: 14px;
+}
+
+body {
+  a {
+    text-decoration: none;
+    color: $color-1;
+    display: inline-block;
+    font-size: to-rem(14px);
+  }
+
+  .badge {
+    border-radius: 2px;
+  }
+
+  .badge-warning {
+    background-color: $color-5;
+  }
+}
+
+
+.main-content {
+  margin-top: to-rem(80px);
+  margin-bottom: $footer-height;
+
+  >.row {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.row.no-margin {
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: $color-1;
+  width: 100%;
+  z-index: 100;
+  height: $footer-height;
+  border-top: 1px solid #CCC;
+  color: #FFF;
+
+  >.container {
+    padding: to-rem(15px) 0
+  }
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+
+  .main-content {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  footer {
+    position: initial;
+  }
+}

@@ -1,0 +1,57 @@
+$success-color: #3CAD1F;
+
+.mat-button,
+.mat-fab,
+.mat-icon-button,
+.mat-mini-fab,
+.mat-raised-button {
+
+  &.mat-success {
+    color: #FFF;
+    background-color: $success-color;
+  }
+
+  &.mat-color-1 {
+    color: #FFF;
+    background-color: $color-1;
+  }
+
+  &.mat-primary,
+  &.mat-color-2 {
+    color: #FFF;
+    background-color: $color-2;
+  }
+
+  &.mat-color-3 {
+    background-color: $color-3;
+  }
+
+  &.mat-color-4 {
+    background-color: $color-4;
+  }
+
+  &.mat-color-5,
+  &.mat-warn {
+    color: #FFF;
+    background-color: $color-5;
+  }
+
+  &.mat-gray {
+    background-color: #EEE;
+  }
+
+  &.width-auto {
+    width: auto;
+    min-width: auto;
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
+
+  &.mini {
+    min-width: auto;
+    padding: 0 to-rem(5px);
+    line-height: 100%;
+  }
+}

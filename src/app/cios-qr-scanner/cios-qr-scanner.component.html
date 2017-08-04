@@ -1,0 +1,24 @@
+<div class="qr-scanner">
+  <div class="scanner" [hidden]="userFoundIt">
+    <h2 class="title">
+      QR Scanner
+    </h2>
+    <div id="camera">
+      <video id="scanner-video" class="img-fluid"></video>
+      <button md-mini-fab (click)="switchCamera()" class="switch" *ngIf="scanning && cameras && cameras.length > 1" [hidden]="error" color="primary" mdTooltip="Cambiar Cámara">
+      <md-icon>autorenew</md-icon>
+    </button>
+      <button md-mini-fab (click)="scan()" class="camera" [hidden]="error" [ngStyle]="getScanButtonStyles()" color="{{getScanButtonColor()}}" mdTooltip="{{getScanButtonText()}}">
+      <md-icon>camera_alt</md-icon>
+    </button>
+    </div>
+  </div>
+  <div class="results" *ngIf="userFoundIt">
+    <h2 class="title">
+      Usuario encontrado
+    </h2>
+    <div class="users" *ngIf="user && loggedUser">
+      <cios-user-active [user]="user" [loggedUser]="loggedUser" [showCancelButton]="true" (cancel)="onCancel($event)" (userUpdated)="onUserUpdated($event)"></cios-user-active>
+    </div>
+  </div>
+</div>

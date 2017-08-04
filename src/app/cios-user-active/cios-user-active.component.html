@@ -1,0 +1,79 @@
+<md-card class="user">
+  <button type="button" class="notes" [class.active]="user.notes.length" color="primary" md-mini-fab mdTooltip="Notas" (click)="sidenav.toggle()">
+    <md-icon>speaker_notes</md-icon>
+    <small class="badge badge-warning" *ngIf="user.notes.length">{{user.notes.length}}</small>
+  </button>
+  <md-sidenav-container>
+    <md-sidenav #sidenav mode="over" align="end">
+      <cios-user-notes [user]="user" (userUpdated)="onUserUpdated($event)"></cios-user-notes>
+    </md-sidenav>
+    <div class="sidenav-content">
+      <md-card-header>
+        <div md-card-avatar class="header-image">
+          <a href="javascript:;" (dblclick)="printQR(user)" mdTooltip="Doble clic para imprmir">
+            <img *ngIf="user.qr" class="img-fluid" [src]="user.qr" [alt]="user.name" />
+          </a>
+        </div>
+        <md-card-title>{{user.name}}</md-card-title>
+        <md-card-subtitle>{{user.headquarter_name || 'Sin sede'}}</md-card-subtitle>
+
+        <!-- <button type="button" class="notes" [class.active]="user.notes.length" color="primary" md-mini-fab mdTooltip="Notas" (click)="sidenav.toggle()">
+          <md-icon>speaker_notes</md-icon>
+          <small class="badge badge-warning" *ngIf="user.notes.length">{{user.notes.length}}</small>
+        </button> -->
+      </md-card-header>
+
+      <md-card-content>
+        <div class="row no-margin">
+          <div class="col-sm-3 avatar">
+            <img *ngIf="user.avatar" md-card-image class="img-fluid img-thumbnail" [src]="'../'+user.avatar" [alt]="user.name" />
+            <img *ngIf="!user.avatar" md-card-image class="img-fluid img-thumbnail" src="../components/com_community/assets/user-Male-thumb.png" [alt]="user.name" />
+          </div>
+          <div class="col-sm-9 content">
+            <div class="date-in">
+              <div class="text">
+                <span class="badge badge-success">
+                  Último ingreso
+                </span>
+              </div>
+              <small *ngIf="user.dateIn" class="small" mdTooltip="{{user.dateIn*1000 | date:'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a'}}">
+                {{(user.dateIn) | moment}}
+              </small>
+              <small *ngIf="!user.dateIn" class="small"> Nunca </small>
+            </div>
+            <div class="date-out" *ngIf="user.dateOut">
+              <div class="text">
+                <span class="badge badge-warning">
+                  Última salida
+                </span>
+              </div>
+              <small *ngIf="user.dateOut" mdTooltip="{{user.dateOut*1000 | date:'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a'}}">
+                {{(user.dateOut) | moment}}
+              </small>
+              <small *ngIf="!user.dateOut"> Nunca </small>
+            </div>
+
+          </div>
+        </div>
+
+      </md-card-content>
+      <md-card-actions>
+        <div class="button" *ngIf="!user.saving">
+          <button md-button md-raised-button color="color-2" [ngClass]="{'width-auto' : showCancelButton}" *ngIf="(user.dateIn && user.dateOut) || !user.dateIn" (click)="checkIn(user)" mdTooltip="CHECK IN">
+            <md-icon>done</md-icon>
+          </button>
+          <button md-button *ngIf="user.dateIn && !user.dateOut" [ngClass]="{'width-auto' : showCancelButton}" md-raised-button color="color-5" mdTooltip="CHECK OUT" (click)="checkOut(user)" [disabled]="user.headquarter_id !== loggedUser.headquarter.id">
+            <md-icon>exit_to_app</md-icon>
+          </button>
+          <button md-button md-raised-button class="width-auto float-right" *ngIf="showCancelButton" (click)="onCancel()" [disabled]="user.saving" color="color-4" mdTooltip="Cancelar">
+            <md-icon>cancel</md-icon>
+          </button>
+          <div class="float-right user-in-other-hq" mdTooltip="Este usuario actualmente se encuentra en otra sede." mfTooltipPosition="above" *ngIf="user.dateIn && !user.dateOut && user.headquarter_id !== loggedUser.headquarter.id">
+            <md-icon color="warn">warning</md-icon>
+          </div>
+        </div>
+        <md-progress-bar class="distractor" *ngIf="user.saving" mode="indeterminate"></md-progress-bar>
+      </md-card-actions>
+    </div>
+  </md-sidenav-container>
+</md-card>

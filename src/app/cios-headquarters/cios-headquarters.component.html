@@ -1,0 +1,29 @@
+<div class="section-filters">
+  <form #filterForm="ngForm" class="row align-items-end">
+    <div class="col-sm-6">
+      <md-input-container>
+        <input mdInput [(ngModel)]="filter.search" name="search" type="text" autocomplete="off" placeholder="Buscar por palabra clave">
+      </md-input-container>
+
+      <!-- <md-select placeholder="Todas las sedes" class="text-left" [(ngModel)]="filter.headquarter" [ngModelOptions]="{standalone: true}">
+        <md-option>Sedes</md-option>
+        <md-option *ngFor="let hq of headquarters" [value]="hq.id">{{hq.name}}</md-option>
+      </md-select> -->
+
+      <button md-button md-raised-button color="primary" (click)="search()">
+        Buscar
+        <md-icon class="md-18">search</md-icon>
+      </button>
+    </div>
+
+    <div class="col-sm-6">
+      <md-paginator *ngIf="filter.pagination" [length]="filter.pagination.total" [pageSize]="filter.pagination.limit" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)" [pageIndex]="filter.pagination.pagesCurrent || 0">
+      </md-paginator>
+    </div>
+  </form>
+  <md-progress-bar mode="indeterminate" *ngIf="loadingData" color="primary"></md-progress-bar>
+</div>
+
+<div class="headquarters row no-margin">
+  <cios-headquarter-item *ngFor="let item of items" class="hq col-sm-4" [item]="item" [loggedUser]="loggedUser" (itemRemoved)="onItemRemoved($event)"></cios-headquarter-item>
+</div>

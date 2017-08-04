@@ -1,0 +1,42 @@
+<md-card>
+  <md-card-header>
+    <md-card-title>
+      <h2 class="title">{{item.name}}</h2>
+    </md-card-title>
+    <md-card-subtitle *ngIf="item.id">
+      <span class="badge" [ngClass]="{'badge-success':item.state, 'badge-danger':!item.state}">{{getState(item)}}</span>
+    </md-card-subtitle>
+
+    <button class="menu-trigger" md-icon-button [mdMenuTriggerFor]="menu">
+      <md-icon>more_vert</md-icon>
+    </button>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item [disabled]="item.state === 1" (click)="publish(item)">
+        <md-icon>done</md-icon>
+        <span>Publicar</span>
+      </button>
+      <button md-menu-item [disabled]="item.state === 0" (click)="unpublish(item)">
+        <md-icon>block</md-icon>
+        <span>Despublicar</span>
+      </button>
+      <button md-menu-item [disabled]="item.state === 1" (click)="remove(item)">
+        <md-icon>delete_forever</md-icon>
+        <span>Eliminar</span>
+      </button>
+    </md-menu>
+  </md-card-header>
+  <!-- <img mdCardImage src="Card wide image source"> -->
+  <md-card-content>
+    <div class="created_by">
+      <label class="badge1 badge-default1">Creada por:</label> {{item.created_by}}
+    </div>
+    <small mdTooltip="{{item.created_at | dateFormat}}">{{item.created_at | dateFormat:'moment'}}</small>
+    <div class="updated_at">
+      <span class="badge1 badge-info1">
+        Última actualización:
+      </span>
+    </div>
+    <small mdTooltip="{{ item.updated_at | dateFormat }}">{{item.updated_at | dateFormat:'moment'}}</small>
+    <md-progress-bar class="distractor" *ngIf="item.saving" mode="indeterminate"></md-progress-bar>
+  </md-card-content>
+</md-card>

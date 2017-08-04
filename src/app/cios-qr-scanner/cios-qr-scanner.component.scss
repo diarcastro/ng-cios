@@ -1,0 +1,32 @@
+@import '../../scss/partials/_common.scss';
+
+.qr-scanner {
+  margin-top: to-rem(60px);
+}
+
+#scanner-video {
+  // max-width: 100%;
+  // width: 100%;
+  min-height: to-rem(135px);
+  background: #000;
+}
+
+#camera {
+  background: #000; // height: to-rem(122px);
+  margin-bottom: to-rem(20px);
+  position: relative;
+
+  >button {
+    position: absolute;
+    z-index: 1;
+    right: 5px;
+
+    &.switch {
+      top: 5px;
+    }
+
+    &.camera {
+      bottom: 5px;
+    }
+  }
+}

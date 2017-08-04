@@ -1,0 +1,15 @@
+@import '~bootstrap/scss/_variables.scss';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/custom';
+@import '~bootstrap/scss/badge';
+@import '~bootstrap/scss/alert';
+@import '~bootstrap/scss/images';
+@import '~bootstrap/scss/utilities';
+@import '~bootstrap/scss/bootstrap-grid.scss';
+
+ul.list-unstyled {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  list-style-type: none;
+}
