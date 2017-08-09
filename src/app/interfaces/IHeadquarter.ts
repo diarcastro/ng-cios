@@ -7,6 +7,7 @@ export interface IHeadquarter extends Object {
   created_at?: number;
   created_by?: string;
   saving?: boolean;
+  editing?: boolean;
 }
 
 export interface IHeadquarterResponse {

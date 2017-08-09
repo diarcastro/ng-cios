@@ -9,10 +9,10 @@
   <form #filterForm="ngForm" class="row align-items-end">
     <div class="col-sm-6">
       <md-input-container>
-        <input mdInput [(ngModel)]="filter.search" name="search" type="text" autocomplete="off" placeholder="Buscar estudiantes">
+        <input mdInput [(ngModel)]="filter.search" name="search" type="text" autocomplete="off" placeholder="Buscar">
       </md-input-container>
 
-      <md-select placeholder="Todas las sedes" class="text-left" [(ngModel)]="filter.headquarter" [ngModelOptions]="{standalone: true}">
+      <md-select placeholder="Sedes" class="text-left" [(ngModel)]="filter.headquarter" [ngModelOptions]="{standalone: true}">
         <md-option>Sedes</md-option>
         <md-option *ngFor="let hq of headquarters" [value]="hq.id">{{hq.name}}</md-option>
       </md-select>

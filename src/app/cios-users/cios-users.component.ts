@@ -50,8 +50,7 @@ export class CiosUsersComponent implements OnInit, OnDestroy {
   ) {
     this.users = [];
     this.loadingUsers = true;
-    this.filter = new IUsersActiveFilter();
-    this.filter.search = '';
+    this.filter = { search: '' };
   }
 
   pageChange(event: PageEvent) {

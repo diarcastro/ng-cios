@@ -1,10 +1,51 @@
-button.menu-trigger {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-}
+.headquarter {
 
-.mat-card-header {
-  display: block;
+  button.menu-trigger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+  }
+
+  .title {
+    position: relative;
+
+    button {
+      position: absolute;
+      top: -7px;
+      right: 0;
+    }
+  }
+
+  h2.title {
+    position: relative;
+
+    button {
+      display: none;
+    }
+
+    &:hover {
+
+      button {
+        display: block;
+      }
+    }
+  }
+
+  div.title {
+    position: relative;
+
+    button.mini {
+      top: 5px;
+    }
+  }
+
+  .mat-input-container {
+    width: 100%;
+  }
+
+
+  .mat-card-header {
+    display: block;
+  }
 }

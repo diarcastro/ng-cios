@@ -1,7 +1,20 @@
-<md-card>
+<md-card class="headquarter">
   <md-card-header>
     <md-card-title>
-      <h2 class="title">{{item.name}}</h2>
+      <div class="title" [hidden]="!editing">
+        <md-input-container floatPlaceholder="never">
+          <input mdInput [(ngModel)]="item.name" (keyup.enter)="endEditing(item, $event)" (keyup.esc)="endEditing(item, $event)" type="text" #headquarterName required placeholder="Nombre de la sede" autocomplete="off">
+        </md-input-container>
+        <button md-button class="mini width-auto" [hidden]="item.name === itemEditing.name" color="primary" (click)="endEditing(item)" mdTooltip="Editar">
+          <md-icon>save</md-icon>
+        </button>
+      </div>
+      <h2 class="title" [hidden]="editing">
+        {{item.name}}
+        <button md-button class="mini width-auto" color="primary" (click)="edit(item, headquarterName);" mdTooltip="Editar">
+          <md-icon>edit</md-icon>
+        </button>
+      </h2>
     </md-card-title>
     <md-card-subtitle *ngIf="item.id">
       <span class="badge" [ngClass]="{'badge-success':item.state, 'badge-danger':!item.state}">{{getState(item)}}</span>
@@ -37,6 +50,6 @@
       </span>
     </div>
     <small mdTooltip="{{ item.updated_at | dateFormat }}">{{item.updated_at | dateFormat:'moment'}}</small>
-    <md-progress-bar class="distractor" *ngIf="item.saving" mode="indeterminate"></md-progress-bar>
+    <md-progress-bar class="distractor" *ngIf="saving" mode="indeterminate"></md-progress-bar>
   </md-card-content>
 </md-card>

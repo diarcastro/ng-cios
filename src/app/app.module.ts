@@ -32,6 +32,7 @@ import { UserService } from './services/user.service';
 import { UserNoteService } from './services/user-note.service';
 import { ServicesRoutes } from './classes/ServicesRoutes';
 import { HeadquarterService } from './services/headquarter.service';
+import { StaffService } from './services/staff.service';
 
 import { routes } from './data/routes';
 
@@ -49,6 +50,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { MomentPipe } from './pipes/moment.pipe';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headquarter-item.component';
+import { CiosStaffItemComponent } from './cios-staff-item/cios-staff-item.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,7 @@ import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headq
     , CiosUserNotesComponent
     , CiosUserActiveComponent
     , CiosHeadquartersComponent
-    , CiosHeadquarterItemComponent
+    , CiosHeadquarterItemComponent, CiosStaffItemComponent
   ],
   imports: [
     BrowserModule
@@ -96,6 +98,7 @@ import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headq
     , AuthGuard
     , UserNoteService
     , HeadquarterService
+    , StaffService
     , { provide: LOCALE_ID, useValue: 'es-ES' }
   ]
   // , schemas: [CUSTOM_ELEMENTS_SCHEMA]

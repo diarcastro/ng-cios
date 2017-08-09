@@ -1,6 +1,13 @@
+@import '../../scss/partials/_common.scss';
+
 .headquarters {
 
   .hq {
-    margin-bottom: 10px;
+    margin-bottom: to-rem(10px);
   }
+}
+
+div.new {
+  text-align: right;
+  margin-top: to-rem(7px);
 }
