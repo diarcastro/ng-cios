@@ -20,6 +20,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { IGenericResponse } from '../interfaces/IGenericResponse';
 import { UserNoteService } from '../services/user-note.service';
 
+declare var Instascan: any;
+
 @Component({
   selector: 'cios-qr-scanner',
   templateUrl: './cios-qr-scanner.component.html',
@@ -45,8 +47,6 @@ export class CiosQrScannerComponent implements OnInit, OnDestroy {
   private getUserSubscription: Subscription;
   private refreshUserSubscription: Subscription;
 
-  private Instascan: any;
-
   constructor(
     private _userService: UserService,
     private _userNoteService: UserNoteService,
@@ -59,14 +59,14 @@ export class CiosQrScannerComponent implements OnInit, OnDestroy {
     // console.log('initScan');
     if (!this.scanner) {
       // console.log('initScanner');
-      this.scanner = new this.Instascan.Scanner({
+      this.scanner = new Instascan.Scanner({
         mirror: false
         , video: document.getElementById('scanner-video')
       });
 
       this.scanner.addListener('scan', (id) => this.onScan(id));
 
-      this.Instascan.Camera.getCameras().then(cameras => {
+      Instascan.Camera.getCameras().then(cameras => {
         this.cameras = cameras;
         if (cameras.length) {
           this.cameraIndex = cameras.length === 2 ? 1 : 0;
@@ -178,7 +178,7 @@ export class CiosQrScannerComponent implements OnInit, OnDestroy {
       }
     });
     if (!environment.production) {
-      // this.scan();
+      this.scan();
     }
   }
 
