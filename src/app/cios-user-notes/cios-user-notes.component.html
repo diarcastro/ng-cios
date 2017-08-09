@@ -6,8 +6,8 @@
     <li class="note" *ngFor="let note of user.notes" [hidden]="note.closed">
       <div class="note-text">
         <small>{{note.note}}</small>
-        <span class="badge badge-warning" mdTooltip="{{user.dateIn*1000 | date:'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a'}}">
-        {{note.date | moment}}
+        <span class="badge badge-warning" mdTooltip="{{user.dateIn | dateFormat}}">
+        {{note.date | dateFormat:'moment'}}
         </span>
       </div>
       <div class="note-button text-right" *ngIf="note.id">

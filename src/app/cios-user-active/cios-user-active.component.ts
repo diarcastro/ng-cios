@@ -17,6 +17,8 @@ export class CiosUserActiveComponent implements OnInit {
   @Output() userUpdated: EventEmitter<IUserActive> = new EventEmitter<IUserActive>();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  saving = false;
+
   constructor(
     private _userService: UserService
   ) { }
@@ -43,9 +45,9 @@ export class CiosUserActiveComponent implements OnInit {
   }
 
   checkIn(user: IUserActive) {
-    user.saving = true;
+    this.saving = true;
     this._userService.checkIn(user).subscribe((response: IUserActive) => {
-      user.saving = false;
+      this.saving = false;
       for (const i in response) {
         if (response.hasOwnProperty(i)) {
           user[i] = response[i];
@@ -53,7 +55,7 @@ export class CiosUserActiveComponent implements OnInit {
       }
       this.onUserUpdated(user);
     }, error => {
-      user.saving = false;
+      this.saving = false;
     });
   }
 
@@ -62,13 +64,13 @@ export class CiosUserActiveComponent implements OnInit {
   }
 
   checkOut(user: IUserActive) {
-    user.saving = true;
+    this.saving = true;
     this._userService.checkOut(user).subscribe((response: IUserActive) => {
-      user.saving = false;
+      this.saving = false;
       user.dateOut = response.dateOut;
       this.onUserUpdated(user);
     }, error => {
-      user.saving = false;
+      this.saving = false;
     });
   }
 

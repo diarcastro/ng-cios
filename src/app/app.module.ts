@@ -44,13 +44,15 @@ import { CiosQrScannerComponent } from './cios-qr-scanner/cios-qr-scanner.compon
 import { CiosUserNotesComponent } from './cios-user-notes/cios-user-notes.component';
 import { CiosUserActiveComponent } from './cios-user-active/cios-user-active.component';
 import { CiosHeadquartersComponent } from './cios-headquarters/cios-headquarters.component';
+import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headquarter-item.component';
+import { CiosStaffItemComponent } from './cios-staff-item/cios-staff-item.component';
+import { CiosFixQrComponent } from './cios-fix-qr/cios-fix-qr.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
 import { MomentPipe } from './pipes/moment.pipe';
 import { DateFormatPipe } from './pipes/date-format.pipe';
-import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headquarter-item.component';
-import { CiosStaffItemComponent } from './cios-staff-item/cios-staff-item.component';
+import { FixQrService } from './services/fix-qr.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { CiosStaffItemComponent } from './cios-staff-item/cios-staff-item.compon
     , CiosUserNotesComponent
     , CiosUserActiveComponent
     , CiosHeadquartersComponent
-    , CiosHeadquarterItemComponent, CiosStaffItemComponent
+    , CiosHeadquarterItemComponent
+    , CiosStaffItemComponent
+    , CiosFixQrComponent
   ],
   imports: [
     BrowserModule
@@ -99,6 +103,7 @@ import { CiosStaffItemComponent } from './cios-staff-item/cios-staff-item.compon
     , UserNoteService
     , HeadquarterService
     , StaffService
+    , FixQrService
     , { provide: LOCALE_ID, useValue: 'es-ES' }
   ]
   // , schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -1,26 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { IUser, IUserResponse } from '../interfaces/IUser';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'cios-menu',
   templateUrl: './cios-menu.component.html',
   styleUrls: ['./cios-menu.component.scss']
 })
-export class CiosMenuComponent implements OnInit {
+export class CiosMenuComponent implements OnInit, OnDestroy {
 
   user: IUser;
+  fix: number;
+
+  private _getUser$: Subscription;
+  private _getResponse$: Subscription;
 
   constructor(
-    private userService: UserService
+    private _userService: UserService
   ) { }
 
   ngOnInit() {
 
-    this.userService.get().subscribe((response: IUserResponse) => {
+    this._getResponse$ = this._userService.userResponse$.asObservable().subscribe((response: IUserResponse) => {
+      this.fix = response.fix;
+    });
+
+    this._getUser$ = this._userService.get().subscribe((response: IUserResponse) => {
       this.user = response.user;
+      this.fix = +response.fix;
     })
+  }
+
+  ngOnDestroy() {
+    this._getUser$.unsubscribe();
+    this._getResponse$.unsubscribe();
   }
 
 }

@@ -1,3 +1,61 @@
+<md-card class="staff">
+  <md-sidenav-container>
+    <md-sidenav #sidenav mode="over" align="end" (open-start)="onEdit()" (close-start)="onEndEdit()">
+      <md-select placeholder="Sede" [(ngModel)]="item.headquarter_id">
+        <md-option *ngFor="let hq of headquarters" [value]="hq.id">
+          {{hq.name}}
+        </md-option>
+      </md-select>
+      <div class="text-right buttons">
+        <button md-button md-raised-button (click)="sidenav.close();">
+          Guardar
+        </button>
+      </div>
+    </md-sidenav>
+    <div class="sidenav-content">
+      <md-card-header>
+        <md-card-title>
+          {{item.name}}
+          <div>
+            <small>{{item.username}}</small>
+          </div>
+        </md-card-title>
+        <md-card-subtitle *ngIf="!saving">{{item.headquarter_name || 'Sin sede asignada'}}</md-card-subtitle>
+      </md-card-header>
+
+
+      <md-card-content>
+        <div class="content">
+          <div>
+            <label for="" class="badge badge-primary">Email: </label>
+            <a [href]="'mailto:'+item.email">
+              <small>{{item.email}}</small>
+            </a>
+          </div>
+          <div class="updated-date">
+            <span class="badge badge-default">Última actualización</span>
+            <small mdTooltip="{{item.updated_at | dateFormat}}">{{item.updated_at | dateFormat:'moment'}}</small>
+          </div>
+        </div>
+      </md-card-content>
+      <md-card-actions>
+        <div class="button text-right">
+          <button md-button md-raised-button (click)="sidenav.open();" [disabled]="saving" [color]="item.headquarter_id?'primary':'color-4'">
+            <span *ngIf="item.headquarter_id">Editar Sede</span>
+            <span *ngIf="!item.headquarter_id">Asignar Sede</span>
+            <md-icon>edit</md-icon>
+          </button>
+        </div>
+        <md-progress-bar class="distractor" *ngIf="saving" mode="indeterminate"></md-progress-bar>
+      </md-card-actions>
+    </div>
+  </md-sidenav-container>
+</md-card>
+
+<!--
 <pre>
   {{item | json}}
 </pre>
+<pre>
+  {{headquarters | json}}
+</pre> -->

@@ -29,8 +29,8 @@ export class AuthGuard implements CanActivate {
           return response.user.permissions.headquarter ? true : false;
         case '/reportes':
           return response.user.permissions.reports ? true : false;
-        case '/fix':
-          return response.user.permissions.qr_fix ? true : false;
+        case '/fix-qr':
+          return response.user.permissions.qr_fix && response.fix ? true : false;
       }
     });
 

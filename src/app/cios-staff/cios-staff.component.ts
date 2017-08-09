@@ -18,8 +18,8 @@ import { IHeadquarterResponse, IHeadquarter } from '../interfaces/IHeadquarter';
 export class CiosStaffComponent implements OnInit, OnDestroy {
 
   public filter: IStaffFilter;
-  public _items: IStaff[];
-  public _headquarters: IHeadquarter[] = [];
+  private _items: IStaff[];
+  public headquarters: IHeadquarter[] = [];
   public loggedUser: IUser;
   public pageEvent: PageEvent;
   public pageSizeOptions: number[] = [6, 12, 18, 51];
@@ -74,6 +74,7 @@ export class CiosStaffComponent implements OnInit, OnDestroy {
   }
 
   search() {
+    this._items = [];
     this.loading = true;
     this._getAll$ = this._staffService.getAll(this.filter).subscribe((response: IStaffResponse) => {
       this.loading = false;
@@ -84,7 +85,7 @@ export class CiosStaffComponent implements OnInit, OnDestroy {
   }
 
   getHeadquarters(): IHeadquarter[] {
-    return this._headquarters;
+    return this.headquarters;
   }
 
   pageChange(event: PageEvent) {
@@ -113,7 +114,7 @@ export class CiosStaffComponent implements OnInit, OnDestroy {
     };
 
     this._getHeadquarters$ = this._headquarterService.getAll(filter).subscribe((response: IHeadquarterResponse) => {
-      this._headquarters = response.headquarters;
+      this.headquarters = response.headquarters;
     });
   }
 

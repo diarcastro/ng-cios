@@ -1,6 +1,12 @@
 <div id="menu" class="row">
 
   <ul class="nav menu flex-column" *ngIf="user">
+    <li *ngIf="user.permissions.qr_fix && fix" class="fix">
+      <a routerLink="fix-qr" routerLinkActive="active">
+        <md-icon>report</md-icon>
+        <span>Fix QR</span>
+      </a>
+    </li>
     <li *ngIf="user.permissions.create">
       <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <md-icon>assignment_ind</md-icon>
@@ -29,12 +35,6 @@
       <a routerLink="reportes" routerLinkActive="active">
         <md-icon>assignment</md-icon>
         <span>Reportes</span>
-      </a>
-    </li>
-    <li *ngIf="user.permissions.qr_fix">
-      <a routerLink="fix" routerLinkActive="active">
-        <md-icon>report</md-icon>
-        <span>Fix QR</span>
       </a>
     </li>
   </ul>
