@@ -18,6 +18,15 @@ import {
   , MdToolbarModule
   , MdSidenavModule
   , MdMenuModule
+  , MdDatepickerModule
+  // , MdNativeDateModule
+  , MdSlideToggleModule
+  , DateAdapter
+  , NativeDateAdapter
+  , MD_DATE_FORMATS
+  , MD_NATIVE_DATE_FORMATS
+  // , MdDatepickerIntl
+  , ɵx as MdPaginatorIntl
 } from '@angular/material';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,6 +41,8 @@ import { UserService } from './services/user.service';
 import { UserNoteService } from './services/user-note.service';
 import { ServicesRoutes } from './classes/ServicesRoutes';
 import { HeadquarterService } from './services/headquarter.service';
+import { StaffService } from './services/staff.service';
+import { ReportsService } from './services/reports.service';
 
 import { routes } from './data/routes';
 
@@ -43,12 +54,18 @@ import { CiosQrScannerComponent } from './cios-qr-scanner/cios-qr-scanner.compon
 import { CiosUserNotesComponent } from './cios-user-notes/cios-user-notes.component';
 import { CiosUserActiveComponent } from './cios-user-active/cios-user-active.component';
 import { CiosHeadquartersComponent } from './cios-headquarters/cios-headquarters.component';
+import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headquarter-item.component';
+import { CiosStaffItemComponent } from './cios-staff-item/cios-staff-item.component';
+import { CiosFixQrComponent } from './cios-fix-qr/cios-fix-qr.component';
+import { FixQrService } from './services/fix-qr.service';
+import { CiosReportsComponent } from './cios-reports/cios-reports.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
 import { MomentPipe } from './pipes/moment.pipe';
 import { DateFormatPipe } from './pipes/date-format.pipe';
-import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headquarter-item.component';
+import { CiosIntl } from './classes/CiosIntl';
+import { CiosFooterComponent } from './cios-footer/cios-footer.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +81,9 @@ import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headq
     , CiosUserActiveComponent
     , CiosHeadquartersComponent
     , CiosHeadquarterItemComponent
+    , CiosStaffItemComponent
+    , CiosFixQrComponent
+    , CiosReportsComponent, CiosFooterComponent
   ],
   imports: [
     BrowserModule
@@ -80,6 +100,10 @@ import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headq
     , MdToolbarModule
     , MdSidenavModule
     , MdMenuModule
+    , MdDatepickerModule
+    // , MdNativeDateModule
+    , MdSlideToggleModule
+
     , HttpModule
     , FormsModule
     , HttpClientXsrfModule
@@ -96,9 +120,21 @@ import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headq
     , AuthGuard
     , UserNoteService
     , HeadquarterService
-    , { provide: LOCALE_ID, useValue: 'es-ES' }
+    , StaffService
+    , FixQrService
+    , ReportsService
+    , { provide: DateAdapter, useClass: NativeDateAdapter }
+    , { provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }
+    , { provide: LOCALE_ID, useValue: 'es-CO' }
+    // , { provide: MdDatepickerIntl, useClass: CiosIntl }
+    , { provide: MdPaginatorIntl, useClass: CiosIntl }
   ]
   // , schemas: [CUSTOM_ELEMENTS_SCHEMA]
   , bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(dateAdapter: DateAdapter<Date>) {
+    dateAdapter.setLocale('es-CO');
+  }
+
+}

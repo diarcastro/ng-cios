@@ -41,9 +41,9 @@ body {
 
 .main-content {
   margin-top: to-rem(80px);
-  margin-bottom: $footer-height;
+  margin-bottom: to-rem(45px);
 
-  >.row {
+  > .row {
     margin: 0;
     padding: 0;
   }
@@ -54,21 +54,24 @@ body {
   padding: 0;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background: $color-1;
-  width: 100%;
-  z-index: 100;
-  height: $footer-height;
-  border-top: 1px solid #CCC;
-  color: #FFF;
 
-  >.container {
-    padding: to-rem(15px) 0
+.sidebar {
+  padding: 0;
+  position: fixed;
+  top: 80px;
+  bottom: 45px;
+  left: 0;
+  z-index: 3;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &.right {
+    right: 0;
+    left: inherit;
   }
 }
+
+
 
 [hidden] {
   display: none !important;
@@ -81,7 +84,11 @@ footer {
     margin-bottom: 0;
   }
 
-  footer {
+  .sidebar {
     position: initial;
+    top: inherit;
+    bottom: inherit;
+    right: inherit;
+    left: inherit;
   }
 }

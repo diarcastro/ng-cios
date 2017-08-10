@@ -21,5 +21,6 @@ export interface IUser {
 
 export interface IUserResponse {
   user: IUser;
-  headquarters: IHeadquarter[];
+  headquarters?: IHeadquarter[];
+  fix?: number;
 }

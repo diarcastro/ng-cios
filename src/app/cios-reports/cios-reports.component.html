@@ -1,0 +1,86 @@
+<div class="reports-section">
+  <div class="section-filters" *ngIf="filter">
+    <form #filterForm="ngForm" class="row align-items-end">
+      <div class="col-sm-12">
+        <md-input-container>
+          <input mdInput [(ngModel)]="filter.search" name="search" type="text" autocomplete="off" placeholder="Buscar">
+        </md-input-container>
+
+        <md-select placeholder="Sedes" class="text-left" [(ngModel)]="filter.headquarter_id" [ngModelOptions]="{standalone: true}">
+          <md-option>Sedes</md-option>
+          <md-option *ngFor="let hq of headquarters" [value]="hq.id">{{hq.name}}</md-option>
+        </md-select>
+
+        <md-input-container>
+          <input mdInput [mdDatepicker]="pickerDateInit" [(ngModel)]="filter.date_init" placeholder="Fecha inicial" autocomplete="off" [ngModelOptions]="{standalone: true}">
+          <button mdSuffix [mdDatepickerToggle]="pickerDateInit"></button>
+        </md-input-container>
+        <md-datepicker #pickerDateInit></md-datepicker>
+
+        <md-input-container>
+          <input mdInput [mdDatepicker]="pickerDateEnd" [(ngModel)]="filter.date_end" placeholder="Fecha final" autocomplete="off" [ngModelOptions]="{standalone: true}">
+          <button mdSuffix [mdDatepickerToggle]="pickerDateEnd"></button>
+        </md-input-container>
+        <md-datepicker #pickerDateEnd></md-datepicker>
+
+        <md-select placeholder="Agrupar" class="text-left" [(ngModel)]="filter.grouped" [ngModelOptions]="{standalone: true}">
+          <md-option>Agrupar</md-option>
+          <md-option value="1">Sí</md-option>
+          <md-option value="">No</md-option>
+        </md-select>
+
+        <button md-button md-raised-button color="warn" type="button" class="width-auto" (click)="resetFilters()" mdTooltip="Limpiar filtros">
+          <md-icon>cached</md-icon>
+        </button>
+        <button md-button md-raised-button color="primary" type="submit" (click)="search()">
+          Buscar
+          <md-icon class="md-18">search</md-icon>
+        </button>
+        <a [href]="getExportUrl()" md-button md-raised-button color="success" class="float-right" target="_blank" *ngIf="getItems().length">
+          Exportar
+          <md-icon>file_download</md-icon>
+        </a>
+        <!-- <pre>{{filter | json}}</pre> -->
+      </div>
+
+      <div class="col-sm-12" [hidden]="loading">
+        <md-paginator *ngIf="filter.pagination" [length]="filter.pagination.total" [pageSize]="filter.pagination.limit" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)" [pageIndex]="filter.pagination.pagesCurrent || 0">
+        </md-paginator>
+      </div>
+    </form>
+    <md-progress-bar mode="indeterminate" *ngIf="loading" color="primary"></md-progress-bar>
+  </div>
+  <div class="results">
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <th>Nombre</th>
+        <th>Sede</th>
+        <th><span *ngIf="filter.grouped">Primera </span>Entrada</th>
+        <th><span *ngIf="filter.grouped">Última </span>Salida</th>
+        <th>Tiempo<span *ngIf="filter.grouped"> Total</span></th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let row of getItems()">
+          <td>{{row.name}}</td>
+          <td class="text-center">{{row.headquarter_name}}</td>
+          <td class="text-center">{{row.in | dateFormat:'dd/MM/y hh:mm a'}}</td>
+          <td class="text-center">{{row.out | dateFormat:'dd/MM/y hh:mm a'}}</td>
+          <td class="text-center"><small>{{row.time}}</small></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- <md-table [dataSource]="getItems()">
+    <ng-container cdkColumnRef="userName">
+      <md-header-cell *cdkHeaderCellDef>Estudiante</md-header-cell>
+      <md-cell *cdkCellDef="let row">{{row.name}}</md-header-cell>
+    </ng-container>
+  </md-table> -->
+</div>
+
+<!-- <pre>
+  {{getItems().length}}
+  {{getItems() | json}}
+</pre> -->

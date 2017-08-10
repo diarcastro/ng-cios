@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component
+  , OnInit
+  , Input
+  , Output
+  , EventEmitter
+  , ViewEncapsulation
+  , ViewChild
+  , AfterContentChecked
+} from '@angular/core';
 import { IHeadquarter } from '../interfaces/IHeadquarter';
 import { IUser } from '../interfaces/IUser';
 import { HeadquarterService } from '../services/headquarter.service';
@@ -7,17 +16,27 @@ import swal from 'sweetalert2';
 @Component({
   selector: 'cios-headquarter-item',
   templateUrl: './cios-headquarter-item.component.html',
-  styleUrls: ['./cios-headquarter-item.component.scss']
+  styleUrls: ['./cios-headquarter-item.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class CiosHeadquarterItemComponent implements OnInit {
+export class CiosHeadquarterItemComponent implements OnInit, AfterContentChecked {
 
   @Input() item: IHeadquarter;
   @Input() loggedUser: IUser;
   @Output() itemRemoved: EventEmitter<IHeadquarter> = new EventEmitter<IHeadquarter>();
 
+  @ViewChild('headquarterName') headquarterName;
+
+  public itemEditing: IHeadquarter;
+
+  public editing = false;
+  public saving = false;
+
   constructor(
     private _headquarterService: HeadquarterService
-  ) { }
+  ) {
+    this.itemEditing = { name: '' };
+  }
 
   publish(item: IHeadquarter) {
     item.state = 1;
@@ -29,23 +48,46 @@ export class CiosHeadquarterItemComponent implements OnInit {
     this._save(item);
   }
 
+  edit(item: IHeadquarter, input: HTMLInputElement) {
+    this.editing = true;
+    this.itemEditing = Object.assign({}, item);
+  }
+
+  endEditing(item: IHeadquarter, $event?: KeyboardEvent) {
+    const force: boolean = !this.itemEditing ? true : false;
+    if (($event && $event.keyCode === 27) || force) {
+      item.name = this.itemEditing.name;
+    } else {
+      item.name = item.name || this.itemEditing.name;
+    }
+
+    this.editing = false;
+    if (item.name !== this.itemEditing.name) {
+      this.itemEditing = { name: '' };
+      this._save(item);
+    }
+
+  }
+
   private _save(item: IHeadquarter) {
-    item.saving = true;
+    this.saving = true;
     this._headquarterService.save(item).subscribe((response: IHeadquarter) => {
-      item.saving = false;
+      this.saving = false;
+      if (item.state < 0) {
+        this.itemRemoved.emit(item);
+        return;
+      }
+
       for (const attr in response) {
         if (response.hasOwnProperty(attr)) {
           item[attr] = response[attr];
         }
       }
-      if (item.state < 0) {
-        this.itemRemoved.emit(item);
-      }
     });
   }
 
   remove(item: IHeadquarter) {
-    item.saving = true;
+    this.saving = true;
     swal({
       title: 'Eliminar sede'
       , text: 'Realmente desea eliminar la sede ' + item.name + '?'
@@ -54,7 +96,7 @@ export class CiosHeadquarterItemComponent implements OnInit {
       , cancelButtonText: 'Cancelar'
       , confirmButtonText: 'Eliminar'
       , confirmButtonColor: '#d9534f'
-    }).then(() => this.onConfirmRemoveItem(item), () => item.saving = false);
+    }).then(() => this.onConfirmRemoveItem(item), () => this.saving = false);
   }
 
   private onConfirmRemoveItem(item: IHeadquarter) {
@@ -67,6 +109,13 @@ export class CiosHeadquarterItemComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterContentChecked() {
+    if (this.editing) {
+      this.headquarterName.nativeElement.focus();
+    }
+
   }
 
 }

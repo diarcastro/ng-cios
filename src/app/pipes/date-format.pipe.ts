@@ -7,7 +7,7 @@ import { MomentPipe } from './moment.pipe';
 })
 export class DateFormatPipe implements PipeTransform {
 
-  transform(timestamp: number, format: string = 'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a', ifEmpty: string = ' '): string {
+  transform(timestamp: number, format: string = 'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a', ifEmpty: string = ' - '): string {
     if (!timestamp) {
       return ifEmpty;
     }

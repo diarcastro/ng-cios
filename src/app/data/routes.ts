@@ -4,6 +4,8 @@ import { CiosUsersComponent } from '../cios-users/cios-users.component';
 import { CiosStaffComponent } from '../cios-staff/cios-staff.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { CiosHeadquartersComponent } from '../cios-headquarters/cios-headquarters.component';
+import { CiosFixQrComponent } from '../cios-fix-qr/cios-fix-qr.component';
+import { CiosReportsComponent } from '../cios-reports/cios-reports.component';
 
 
 export const routes: Routes = [
@@ -25,6 +27,16 @@ export const routes: Routes = [
   , {
     path: 'personal'
     , component: CiosStaffComponent
+    , canActivate: [AuthGuard]
+  }
+  , {
+    path: 'fix-qr'
+    , component: CiosFixQrComponent
+    , canActivate: [AuthGuard]
+  }
+  , {
+    path: 'reportes'
+    , component: CiosReportsComponent
     , canActivate: [AuthGuard]
   }
 ];

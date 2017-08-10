@@ -50,8 +50,7 @@ export class CiosUsersComponent implements OnInit, OnDestroy {
   ) {
     this.users = [];
     this.loadingUsers = true;
-    this.filter = new IUsersActiveFilter();
-    this.filter.search = '';
+    this.filter = { search: '' };
   }
 
   pageChange(event: PageEvent) {
@@ -154,7 +153,8 @@ export class CiosUsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.filter = <IUsersActiveFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)) || {});
+    const savedFilters = <IUsersActiveFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)));
+    this.filter = savedFilters || this.filter;
     this.searchUsers();
 
     this._get$ = this._userService.get().subscribe((response: IUserResponse) => {

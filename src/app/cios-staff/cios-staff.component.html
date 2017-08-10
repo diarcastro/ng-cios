@@ -1,3 +1,32 @@
-<p>
-  cios-staff works!
-</p>
+<div class="staff-section">
+
+  <div class="section-filters">
+    <form #filterForm="ngForm" class="row align-items-end">
+      <div class="col-sm-6">
+        <md-input-container>
+          <input mdInput [(ngModel)]="filter.search" name="search" type="text" autocomplete="off" placeholder="Buscar">
+        </md-input-container>
+
+        <md-select placeholder="Sede" class="text-left" [(ngModel)]="filter.headquarter_id" [ngModelOptions]="{standalone: true}">
+          <md-option>Sede</md-option>
+          <md-option *ngFor="let hq of getHeadquarters()" [value]="hq.id">{{hq.name}}</md-option>
+        </md-select>
+
+        <button md-button md-raised-button color="primary" (click)="search()">
+          Buscar
+          <md-icon class="md-18">search</md-icon>
+        </button>
+      </div>
+
+      <div class="col-sm-6">
+        <md-paginator *ngIf="filter.pagination" [length]="filter.pagination.total" [pageSize]="filter.pagination.limit" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)" [pageIndex]="filter.pagination.pagesCurrent || 0">
+        </md-paginator>
+      </div>
+    </form>
+    <md-progress-bar mode="indeterminate" *ngIf="loading" color="primary"></md-progress-bar>
+  </div>
+
+  <div class="staff row no-margin">
+    <cios-staff-item *ngFor="let item of getItems()" class="staff col-sm-4" [item]="item" [loggedUser]="loggedUser" [headquarters]="headquarters"></cios-staff-item>
+  </div>
+</div>

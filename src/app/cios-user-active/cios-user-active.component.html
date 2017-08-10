@@ -36,8 +36,8 @@
                   Último ingreso
                 </span>
               </div>
-              <small *ngIf="user.dateIn" class="small" mdTooltip="{{user.dateIn*1000 | date:'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a'}}">
-                {{(user.dateIn) | moment}}
+              <small *ngIf="user.dateIn" class="small" mdTooltip="{{user.dateIn | dateFormat}}">
+                {{user.dateIn | dateFormat:'moment'}}
               </small>
               <small *ngIf="!user.dateIn" class="small"> Nunca </small>
             </div>
@@ -47,8 +47,8 @@
                   Última salida
                 </span>
               </div>
-              <small *ngIf="user.dateOut" mdTooltip="{{user.dateOut*1000 | date:'EEEE dd \'de\' MMMM \'de\' yy, hh:mm a'}}">
-                {{(user.dateOut) | moment}}
+              <small *ngIf="user.dateOut" mdTooltip="{{user.dateOut | dateFormat}}">
+                {{user.dateOut | dateFormat:'moment'}}
               </small>
               <small *ngIf="!user.dateOut"> Nunca </small>
             </div>
@@ -58,21 +58,21 @@
 
       </md-card-content>
       <md-card-actions>
-        <div class="button" *ngIf="!user.saving">
+        <div class="button" *ngIf="!saving">
           <button md-button md-raised-button color="color-2" [ngClass]="{'width-auto' : showCancelButton}" *ngIf="(user.dateIn && user.dateOut) || !user.dateIn" (click)="checkIn(user)" mdTooltip="CHECK IN">
             <md-icon>done</md-icon>
           </button>
           <button md-button *ngIf="user.dateIn && !user.dateOut" [ngClass]="{'width-auto' : showCancelButton}" md-raised-button color="color-5" mdTooltip="CHECK OUT" (click)="checkOut(user)" [disabled]="user.headquarter_id !== loggedUser.headquarter.id">
             <md-icon>exit_to_app</md-icon>
           </button>
-          <button md-button md-raised-button class="width-auto float-right" *ngIf="showCancelButton" (click)="onCancel()" [disabled]="user.saving" color="color-4" mdTooltip="Cancelar">
+          <button md-button md-raised-button class="width-auto float-right" *ngIf="showCancelButton" (click)="onCancel()" [disabled]="saving" color="color-4" mdTooltip="Cancelar">
             <md-icon>cancel</md-icon>
           </button>
           <div class="float-right user-in-other-hq" mdTooltip="Este usuario actualmente se encuentra en otra sede." mfTooltipPosition="above" *ngIf="user.dateIn && !user.dateOut && user.headquarter_id !== loggedUser.headquarter.id">
             <md-icon color="warn">warning</md-icon>
           </div>
         </div>
-        <md-progress-bar class="distractor" *ngIf="user.saving" mode="indeterminate"></md-progress-bar>
+        <md-progress-bar class="distractor" *ngIf="saving" mode="indeterminate"></md-progress-bar>
       </md-card-actions>
     </div>
   </md-sidenav-container>

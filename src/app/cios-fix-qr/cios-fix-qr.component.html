@@ -1,0 +1,13 @@
+<div class="fix-qr-section text-center">
+
+  <button md-button md-raised-button color="warn" (click)="fixUsers()" [disabled]="saving" *ngIf="fix">
+    Generar Código QR para {{fix}} Usuario<span *ngIf="fix > 1">s</span>
+    <md-icon class="md-24">refresh</md-icon>
+  </button>
+
+  <div class="alert alert-info" *ngIf="!fix">
+    Todos los usuarios poseen código QR actualmente
+  </div>
+
+  <md-progress-bar mode="indeterminate" *ngIf="saving" color="primary"></md-progress-bar>
+</div>
