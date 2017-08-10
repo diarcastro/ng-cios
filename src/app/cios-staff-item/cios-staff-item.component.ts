@@ -30,7 +30,6 @@ export class CiosStaffItemComponent implements OnInit {
   }
 
   onEndEdit() {
-    console.log('Cancel Edit');
     if (this.item.headquarter_id !== this._itemEditing.headquarter_id) {
       this.saving = true;
       this._staffService.save(this.item).subscribe((response: IStaff) => {

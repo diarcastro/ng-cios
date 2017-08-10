@@ -19,7 +19,8 @@ import {
   , MdSidenavModule
   , MdMenuModule
   , MdDatepickerModule
-  , MdNativeDateModule
+  // , MdNativeDateModule
+  , MdSlideToggleModule
   , DateAdapter
   , NativeDateAdapter
   , MD_DATE_FORMATS
@@ -64,6 +65,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { MomentPipe } from './pipes/moment.pipe';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { CiosIntl } from './classes/CiosIntl';
+import { CiosFooterComponent } from './cios-footer/cios-footer.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,7 @@ import { CiosIntl } from './classes/CiosIntl';
     , CiosHeadquarterItemComponent
     , CiosStaffItemComponent
     , CiosFixQrComponent
-    , CiosReportsComponent
+    , CiosReportsComponent, CiosFooterComponent
   ],
   imports: [
     BrowserModule
@@ -99,7 +101,8 @@ import { CiosIntl } from './classes/CiosIntl';
     , MdSidenavModule
     , MdMenuModule
     , MdDatepickerModule
-    , MdNativeDateModule
+    // , MdNativeDateModule
+    , MdSlideToggleModule
 
     , HttpModule
     , FormsModule
@@ -120,9 +123,9 @@ import { CiosIntl } from './classes/CiosIntl';
     , StaffService
     , FixQrService
     , ReportsService
-    // , { provide: DateAdapter, useClass: NativeDateAdapter }
-    // , { provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }
-    // , { provide: LOCALE_ID, useValue: 'es-CO' }
+    , { provide: DateAdapter, useClass: NativeDateAdapter }
+    , { provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }
+    , { provide: LOCALE_ID, useValue: 'es-CO' }
     // , { provide: MdDatepickerIntl, useClass: CiosIntl }
     , { provide: MdPaginatorIntl, useClass: CiosIntl }
   ]

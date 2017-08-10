@@ -10,6 +10,24 @@
     margin: 0;
     padding: to-rem(20px);
     font-size: to-rem(30px);
+
+
+    span {
+      overflow: hidden;
+      transition: all .3s;
+      cursor: default;
+      opacity: .6;
+      width: 0;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    &:hover {
+
+      span {
+        width: auto; // opacity: 1;
+      }
+    }
   }
 
   &__user_info {

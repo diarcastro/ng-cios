@@ -96,7 +96,8 @@ export class CiosStaffComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.filter = <IStaffFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)) || {});
+    const savedFilters = <IStaffFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)));
+    this.filter = savedFilters || this.filter;
     this.search();
 
     this._getUser$ = this._userService.get().subscribe((userResponse: IUserResponse) => {

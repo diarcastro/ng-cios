@@ -9,6 +9,7 @@ import { DataSource } from '@angular/cdk';
 import { IHeadquarter } from '../interfaces/IHeadquarter';
 import { UserService } from '../services/user.service';
 import { IUserResponse } from '../interfaces/IUser';
+import { ServicesRoutes } from '../classes/ServicesRoutes';
 
 @Component({
   selector: 'app-cios-reports',
@@ -33,9 +34,10 @@ export class CiosReportsComponent implements OnInit, OnDestroy {
 
   constructor(
     private _userService: UserService,
-    private _reportsService: ReportsService
+    private _reportsService: ReportsService,
+    private _servicesRoutes: ServicesRoutes
   ) {
-    this.filter = { search: '' };
+    this.filter = { search: '', headquarter_id: '', date_init: '', date_end: '', grouped: '' };
   }
 
   search() {
@@ -54,6 +56,17 @@ export class CiosReportsComponent implements OnInit, OnDestroy {
     return this._items;
   }
 
+  resetFilters() {
+    this.filter = {
+      search: '', headquarter_id: '', date_init: '', date_end: '', grouped: '',
+      pagination: {
+        pagesStart: 0
+        , pagesCurrent: 0
+      }
+    };
+    this.search();
+  }
+
   pageChange(event: PageEvent) {
     this.pageEvent = event;
     this.filter.pagination.pagesCurrent = this.pageEvent.pageIndex;
@@ -61,8 +74,22 @@ export class CiosReportsComponent implements OnInit, OnDestroy {
     this.search();
   }
 
+  getExportUrl() {
+    let url: string = this._servicesRoutes._('Ngreports', 'export');
+    for (const i in this.filter) {
+      if (i !== 'pagination') {
+        url += `&${i}=${encodeURIComponent(this.filter[i])}`;
+      }
+    }
+
+    return url;
+    // ./index.php?option=com_cios&task=Ngreports.export&search=
+  }
+
   ngOnInit() {
-    this.filter = <IReportFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)));
+    const savedFilters = <IReportFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)));
+    this.filter = savedFilters || this.filter;
+
     this.search();
 
     this._getUser$ = this._userService.get().subscribe((response: IUserResponse) => {

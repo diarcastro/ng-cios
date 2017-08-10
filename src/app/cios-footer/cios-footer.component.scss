@@ -1,0 +1,55 @@
+@import '../../scss/partials/_common.scss';
+
+$footer-height: to-rem(45px);
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba($color-1, .95);
+  width: 100%;
+  z-index: 100;
+  min-height: $footer-height; // border-top: 1px solid #CCC;
+  color: #FFF;
+  box-shadow: #000 0 -3px 10px -5px;
+
+  > .container {
+    padding: to-rem(15px) 0;
+    color: #EEE;
+    text-align: center;
+
+    a {
+      color: #DDD;
+      position: relative;
+      transition: all .3s;
+      display: inline-block;
+
+      &:after {
+        transition: all .3s;
+        content: '';
+        width: 0;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        border-bottom: 1px solid #DDD;
+      }
+
+      &:hover {
+        color: #FFF;
+        text-shadow: $color-1 0 0 2px, #FFF 0 0 15px, $color-4 0 0 25px;
+
+        &:after {
+          width: 100%;
+          left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+
+  footer {
+    position: initial;
+  }
+}

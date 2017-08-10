@@ -8,7 +8,7 @@
         </md-input-container>
 
         <md-select placeholder="Sede" class="text-left" [(ngModel)]="filter.headquarter_id" [ngModelOptions]="{standalone: true}">
-          <md-option value="">Sede</md-option>
+          <md-option>Sede</md-option>
           <md-option *ngFor="let hq of getHeadquarters()" [value]="hq.id">{{hq.name}}</md-option>
         </md-select>
 

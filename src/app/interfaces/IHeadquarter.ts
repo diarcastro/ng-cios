@@ -6,6 +6,7 @@ export interface IHeadquarter extends Object {
   state?: number;
   created_at?: number;
   created_by?: string;
+  updated_at?: string | number;
   saving?: boolean;
   editing?: boolean;
 }

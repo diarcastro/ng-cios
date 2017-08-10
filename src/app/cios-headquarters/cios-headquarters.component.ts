@@ -122,7 +122,9 @@ export class CiosHeadquartersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.filter = <IHeadquarterFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)) || {});
+    const savedFilters = <IHeadquarterFilter>(JSON.parse(localStorage.getItem(this.FILTER_KEY)));
+    this.filter = savedFilters || this.filter;
+
     this.search();
 
     this._getUser$ = this._userService.get().subscribe((response: IUserResponse) => {

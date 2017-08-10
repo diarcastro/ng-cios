@@ -1,15 +1,12 @@
 <cios-header></cios-header>
 <div class="main-content">
   <div class="row">
-    <cios-menu class="col-sm-2"></cios-menu>
-    <div class="col-sm-7 col-xl-8">
+    <cios-menu class="col-sm-2 sidebar"></cios-menu>
+    <cios-qr-scanner class="col-sm-3 col-xl-2 hidden-md-up"></cios-qr-scanner>
+    <div id="content" class="col-sm-7 col-xl-8 push-sm-2 content">
       <router-outlet></router-outlet>
     </div>
-    <cios-qr-scanner class="col-sm-3 col-xl-2"></cios-qr-scanner>
+    <cios-qr-scanner class="col-sm-3 col-xl-2 sidebar right push-sm-2 hidden-md-down"></cios-qr-scanner>
   </div>
 </div>
-<footer>
-  <div class="container">
-    Footer
-  </div>
-</footer>
+<cios-footer></cios-footer>

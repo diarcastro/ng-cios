@@ -23,5 +23,5 @@ export interface IReportFilter extends IGenericFilter {
   headquarter_id?: number | string;
   date_init?: string;
   date_end?: string;
-  grouped?: boolean;
+  grouped?: boolean | string | number;
 }
