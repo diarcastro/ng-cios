@@ -18,6 +18,14 @@ import {
   , MdToolbarModule
   , MdSidenavModule
   , MdMenuModule
+  , MdDatepickerModule
+  , MdNativeDateModule
+  , DateAdapter
+  , NativeDateAdapter
+  , MD_DATE_FORMATS
+  , MD_NATIVE_DATE_FORMATS
+  // , MdDatepickerIntl
+  , ɵx as MdPaginatorIntl
 } from '@angular/material';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -33,6 +41,7 @@ import { UserNoteService } from './services/user-note.service';
 import { ServicesRoutes } from './classes/ServicesRoutes';
 import { HeadquarterService } from './services/headquarter.service';
 import { StaffService } from './services/staff.service';
+import { ReportsService } from './services/reports.service';
 
 import { routes } from './data/routes';
 
@@ -47,12 +56,14 @@ import { CiosHeadquartersComponent } from './cios-headquarters/cios-headquarters
 import { CiosHeadquarterItemComponent } from './cios-headquarter-item/cios-headquarter-item.component';
 import { CiosStaffItemComponent } from './cios-staff-item/cios-staff-item.component';
 import { CiosFixQrComponent } from './cios-fix-qr/cios-fix-qr.component';
+import { FixQrService } from './services/fix-qr.service';
+import { CiosReportsComponent } from './cios-reports/cios-reports.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
 import { MomentPipe } from './pipes/moment.pipe';
 import { DateFormatPipe } from './pipes/date-format.pipe';
-import { FixQrService } from './services/fix-qr.service';
+import { CiosIntl } from './classes/CiosIntl';
 
 @NgModule({
   declarations: [
@@ -70,6 +81,7 @@ import { FixQrService } from './services/fix-qr.service';
     , CiosHeadquarterItemComponent
     , CiosStaffItemComponent
     , CiosFixQrComponent
+    , CiosReportsComponent
   ],
   imports: [
     BrowserModule
@@ -86,6 +98,9 @@ import { FixQrService } from './services/fix-qr.service';
     , MdToolbarModule
     , MdSidenavModule
     , MdMenuModule
+    , MdDatepickerModule
+    , MdNativeDateModule
+
     , HttpModule
     , FormsModule
     , HttpClientXsrfModule
@@ -104,9 +119,19 @@ import { FixQrService } from './services/fix-qr.service';
     , HeadquarterService
     , StaffService
     , FixQrService
-    , { provide: LOCALE_ID, useValue: 'es-ES' }
+    , ReportsService
+    // , { provide: DateAdapter, useClass: NativeDateAdapter }
+    // , { provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }
+    // , { provide: LOCALE_ID, useValue: 'es-CO' }
+    // , { provide: MdDatepickerIntl, useClass: CiosIntl }
+    , { provide: MdPaginatorIntl, useClass: CiosIntl }
   ]
   // , schemas: [CUSTOM_ELEMENTS_SCHEMA]
   , bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(dateAdapter: DateAdapter<Date>) {
+    dateAdapter.setLocale('es-CO');
+  }
+
+}

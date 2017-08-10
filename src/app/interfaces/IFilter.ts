@@ -17,3 +17,11 @@ export interface IHeadquarterFilter extends IGenericFilter {
 export interface IStaffFilter extends IGenericFilter {
   headquarter_id?: number | string;
 }
+
+
+export interface IReportFilter extends IGenericFilter {
+  headquarter_id?: number | string;
+  date_init?: string;
+  date_end?: string;
+  grouped?: boolean;
+}

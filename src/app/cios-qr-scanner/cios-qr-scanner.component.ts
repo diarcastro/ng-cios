@@ -178,7 +178,7 @@ export class CiosQrScannerComponent implements OnInit, OnDestroy {
       }
     });
     if (!environment.production) {
-      this.scan();
+      // this.scan();
     }
   }
 
