@@ -41,7 +41,9 @@ export class CiosFixQrComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._user$.unsubscribe();
+    if (this._user$) {
+      this._user$.unsubscribe();
+    }
     if (this._fix$) {
       this._fix$.unsubscribe();
     }

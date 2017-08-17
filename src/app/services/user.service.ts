@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { Observable, Subject } from 'rxjs/Rx';
+
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { ServicesRoutes } from '../classes/ServicesRoutes';
 import { IUser, IUserResponse } from '../interfaces/IUser';
@@ -22,7 +27,7 @@ export class UserService {
   ) {
     // this._refreshUser = new Subject<IUserActive>();
     // this.refreshUser$ = this._refreshUser.asObservable();
-    this.load();
+    // this.load();
   }
 
   public getRefreshUser(): Observable<IUserActive> {
@@ -37,10 +42,10 @@ export class UserService {
    *
    * @memberof UserService
    */
-  private load() {
+  private load(): Observable<IUserResponse> {
     if (!this.userResponse$) {
       this.userResponse$ = new Subject<IUserResponse>()
-      return this.http.get(this.servicesRoutes.userInfo())
+      this.http.get(this.servicesRoutes.userInfo())
         .map((response: Response) => response.json())
         .catch((err: any) => Observable.throw(err.json().error || 'Server error'))
         .subscribe((response: IUserResponse) => {
@@ -48,6 +53,9 @@ export class UserService {
           this.userResponse$.next(response)
         })
         ;
+      return this.userResponse$.asObservable();
+    } else {
+      return this.userResponse$.asObservable();
     }
   }
 
@@ -57,7 +65,7 @@ export class UserService {
         observer.next(this.userResponse);
       });
     } else {
-      return this.userResponse$.asObservable();
+      return this.load();
     }
   }
 

@@ -1,6 +1,5 @@
 import {
   Component
-  // , ViewEncapsulation
   , OnInit
   , OnDestroy
 } from '@angular/core';
@@ -15,7 +14,7 @@ import { IUser, IUserResponse } from '../interfaces/IUser';
 
 import swal from 'sweetalert2';
 import { Subscription } from 'rxjs/Subscription';
-import { UserNoteService } from '../services/user-note.service';
+// import { UserNoteService } from '../services/user-note.service';
 import { IGenericResponse } from '../interfaces/IGenericResponse';
 import { IHeadquarter } from '../interfaces/IHeadquarter';
 
@@ -45,8 +44,7 @@ export class CiosUsersComponent implements OnInit, OnDestroy {
   private _refreshUsers$: Subscription;
 
   constructor(
-    private _userService: UserService,
-    private _userNoteService: UserNoteService
+    private _userService: UserService
   ) {
     this.users = [];
     this.loadingUsers = true;
@@ -167,9 +165,15 @@ export class CiosUsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._get$.unsubscribe();
-    this._getAll$.unsubscribe();
-    this._refreshUsers$.unsubscribe();
+    if (this._get$) {
+      this._get$.unsubscribe();
+    }
+    if (this._getAll$) {
+      this._getAll$.unsubscribe();
+    }
+    if (this._refreshUsers$) {
+      this._refreshUsers$.unsubscribe();
+    }
   }
 
 }

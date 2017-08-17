@@ -13,6 +13,7 @@ import swal from 'sweetalert2';
   selector: 'app-cios-headquarters',
   templateUrl: './cios-headquarters.component.html',
   styleUrls: ['./cios-headquarters.component.scss']
+  , providers: [HeadquarterService]
 })
 export class CiosHeadquartersComponent implements OnInit, OnDestroy {
 
@@ -134,8 +135,12 @@ export class CiosHeadquartersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._getAll$.unsubscribe();
-    this._getUser$.unsubscribe();
+    if (this._getAll$) {
+      this._getAll$.unsubscribe();
+    }
+    if (this._getUser$) {
+      this._getUser$.unsubscribe();
+    }
   }
 
 }

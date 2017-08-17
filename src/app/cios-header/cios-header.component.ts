@@ -19,8 +19,8 @@ export class CiosHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.get().subscribe((userResponse: IUserResponse) => {
-      this.user = userResponse.user;
+    this.userService.get().subscribe((response: IUserResponse) => {
+      this.user = response.user;
     });
   }
 

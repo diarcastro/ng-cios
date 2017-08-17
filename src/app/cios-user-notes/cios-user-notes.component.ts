@@ -4,9 +4,10 @@ import { UserNoteService } from '../services/user-note.service';
 import { IGenericResponse } from '../interfaces/IGenericResponse';
 
 @Component({
-  selector: 'cios-user-notes',
-  templateUrl: './cios-user-notes.component.html',
-  styleUrls: ['./cios-user-notes.component.scss']
+  selector: 'cios-user-notes'
+  , templateUrl: './cios-user-notes.component.html'
+  , styleUrls: ['./cios-user-notes.component.scss']
+  , providers: [UserNoteService]
 })
 export class CiosUserNotesComponent implements OnInit {
   @Input() user: IUserActive;

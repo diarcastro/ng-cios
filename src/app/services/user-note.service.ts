@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { ServicesRoutes } from '../classes/ServicesRoutes';
 import { IUserNote, IUserActive } from '../interfaces/IUserActive';
-import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 import { IGenericResponse } from '../interfaces/IGenericResponse';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class UserNoteService {

@@ -15,27 +15,27 @@ export class ServicesRoutes {
   }
 
   userInfo(): string {
-    return this.makePath('User', 'info');
+    return this._('User', 'info');
   }
 
   userOne(): string {
-    return this.makePath('Nghistorical', 'one');
+    return this._('Nghistorical', 'one');
 
   }
 
   users(): string {
-    return this.makePath('Nghistorical', 'getAll');
+    return this._('Nghistorical', 'getAll');
   }
 
   checkIn(): string {
-    return this.makePath('Nghistorical', 'checkin');
+    return this._('Nghistorical', 'checkin');
   }
 
   checkOut(): string {
-    return this.makePath('Nghistorical', 'checkout');
+    return this._('Nghistorical', 'checkout');
   }
 
   checkOutAll(): string {
-    return this.makePath('Nghistorical', 'checkoutbatch');
+    return this._('Nghistorical', 'checkoutbatch');
   }
 }

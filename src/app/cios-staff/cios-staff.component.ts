@@ -14,6 +14,7 @@ import { IHeadquarterResponse, IHeadquarter } from '../interfaces/IHeadquarter';
   selector: 'app-cios-staff',
   templateUrl: './cios-staff.component.html',
   styleUrls: ['./cios-staff.component.scss']
+  , providers: [StaffService, HeadquarterService]
 })
 export class CiosStaffComponent implements OnInit, OnDestroy {
 
@@ -120,11 +121,15 @@ export class CiosStaffComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._getAll$.unsubscribe();
-    this._getUser$.unsubscribe();
-    this._getHeadquarters$.unsubscribe();
+    if (this._getAll$) {
+      this._getAll$.unsubscribe();
+    }
+    if (this._getUser$) {
+      this._getUser$.unsubscribe();
+    }
+    if (this._getHeadquarters$) {
+      this._getHeadquarters$.unsubscribe();
+    }
   }
-
-
 
 }

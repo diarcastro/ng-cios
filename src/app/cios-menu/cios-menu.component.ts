@@ -22,7 +22,6 @@ export class CiosMenuComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
     this._getResponse$ = this._userService.userResponse$.asObservable().subscribe((response: IUserResponse) => {
       this.fix = response.fix;
     });
@@ -34,8 +33,12 @@ export class CiosMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._getUser$.unsubscribe();
-    this._getResponse$.unsubscribe();
+    if (this._getUser$) {
+      this._getUser$.unsubscribe();
+    }
+    if (this._getResponse$) {
+      this._getResponse$.unsubscribe();
+    }
   }
 
 }
