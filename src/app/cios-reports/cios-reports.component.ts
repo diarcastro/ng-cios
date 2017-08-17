@@ -3,9 +3,7 @@ import { ReportsService } from '../services/reports.service';
 import { IReportFilter } from '../interfaces/IFilter';
 import { PageEvent } from '@angular/material';
 import { IReport, IReportResponse } from '../interfaces/IReport';
-import { Subscription } from 'rxjs/Subscription';
 
-import { DataSource } from '@angular/cdk';
 import { IHeadquarter } from '../interfaces/IHeadquarter';
 import { UserService } from '../services/user.service';
 import { IUserResponse } from '../interfaces/IUser';
@@ -15,6 +13,7 @@ import { ServicesRoutes } from '../classes/ServicesRoutes';
   selector: 'app-cios-reports',
   templateUrl: './cios-reports.component.html',
   styleUrls: ['./cios-reports.component.scss']
+  , providers: [ReportsService]
 })
 export class CiosReportsComponent implements OnInit, OnDestroy {
 
@@ -29,8 +28,6 @@ export class CiosReportsComponent implements OnInit, OnDestroy {
   FILTER_KEY = 'reports-filter';
 
   private _items: IReport[];
-  private _getAll$: Subscription;
-  private _getUser$: Subscription;
 
   constructor(
     private _userService: UserService,
@@ -43,7 +40,7 @@ export class CiosReportsComponent implements OnInit, OnDestroy {
   search() {
     this._items = [];
     this.loading = true;
-    this._getAll$ = this._reportsService.get(this.filter).subscribe((response: IReportResponse) => {
+    this._reportsService.get(this.filter).subscribe((response: IReportResponse) => {
       this.loading = false;
       this._items = response.items;
       this.filter = response.filter;
@@ -92,13 +89,12 @@ export class CiosReportsComponent implements OnInit, OnDestroy {
 
     this.search();
 
-    this._getUser$ = this._userService.get().subscribe((response: IUserResponse) => {
+    this._userService.get().subscribe((response: IUserResponse) => {
       this.headquarters = response.headquarters;
     });
   }
 
   ngOnDestroy() {
-    this._getAll$.unsubscribe();
   }
 
 }

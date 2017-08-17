@@ -18,6 +18,7 @@ import swal from 'sweetalert2';
   templateUrl: './cios-headquarter-item.component.html',
   styleUrls: ['./cios-headquarter-item.component.scss'],
   encapsulation: ViewEncapsulation.None
+  , providers: [HeadquarterService]
 })
 export class CiosHeadquarterItemComponent implements OnInit, AfterContentChecked {
 
@@ -75,14 +76,14 @@ export class CiosHeadquarterItemComponent implements OnInit, AfterContentChecked
       this.saving = false;
       if (item.state < 0) {
         this.itemRemoved.emit(item);
-        return;
-      }
-
-      for (const attr in response) {
-        if (response.hasOwnProperty(attr)) {
-          item[attr] = response[attr];
+      } else {
+        for (const attr in response) {
+          if (response.hasOwnProperty(attr)) {
+            item[attr] = response[attr];
+          }
         }
       }
+      return item;
     });
   }
 

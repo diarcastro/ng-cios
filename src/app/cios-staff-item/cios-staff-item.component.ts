@@ -10,6 +10,7 @@ import { MdSelectChange } from '@angular/material'
   selector: 'cios-staff-item',
   templateUrl: './cios-staff-item.component.html',
   styleUrls: ['./cios-staff-item.component.scss']
+  , providers: [StaffService]
 })
 export class CiosStaffItemComponent implements OnInit {
 

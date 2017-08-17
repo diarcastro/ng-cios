@@ -4,7 +4,7 @@
       QR Scanner
     </h2>
     <div id="camera">
-      <video id="scanner-video" class="img-fluid"></video>
+      <video [attr.id]="scannerId" class="img-fluid"></video>
       <button md-mini-fab (click)="switchCamera()" class="switch" *ngIf="scanning && cameras && cameras.length > 1" [hidden]="error" color="primary" mdTooltip="Cambiar Cámara">
       <md-icon>autorenew</md-icon>
     </button>

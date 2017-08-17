@@ -8,9 +8,9 @@ describe('CiosFooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CiosFooterComponent ]
+      declarations: [CiosFooterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +21,10 @@ describe('CiosFooterComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+
+  it('should have current year ' + new Date().getFullYear(), () => {
+    expect(component.currentYear).toEqual(new Date().getFullYear());
   });
 });

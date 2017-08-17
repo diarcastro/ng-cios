@@ -26,7 +26,7 @@ declare var Instascan: any;
   selector: 'cios-qr-scanner',
   templateUrl: './cios-qr-scanner.component.html',
   styleUrls: ['./cios-qr-scanner.component.scss']
-  // , encapsulation: ViewEncapsulation.None
+  , providers: [UserNoteService]
 })
 export class CiosQrScannerComponent implements OnInit, OnDestroy {
 
@@ -37,6 +37,8 @@ export class CiosQrScannerComponent implements OnInit, OnDestroy {
   public error = false;
   public cameras: any;
   public loadingData = false;
+
+  scannerId: string = 'scanner-' + new Date().getTime() + Math.round((Math.random() * 10000));
 
   public loggedUser: IUser;
 
@@ -61,7 +63,7 @@ export class CiosQrScannerComponent implements OnInit, OnDestroy {
       // console.log('initScanner');
       this.scanner = new Instascan.Scanner({
         mirror: false
-        , video: document.getElementById('scanner-video')
+        , video: document.getElementById(this.scannerId)
       });
 
       this.scanner.addListener('scan', (id) => this.onScan(id));
@@ -183,9 +185,16 @@ export class CiosQrScannerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.getUserSubscription.unsubscribe();
-    this.userLoggedSuscription.unsubscribe();
-    this.refreshUserSubscription.unsubscribe();
+    if (this.getUserSubscription) {
+      this.getUserSubscription.unsubscribe();
+    }
+    if (this.userLoggedSuscription) {
+      this.userLoggedSuscription.unsubscribe();
+
+    }
+    if (this.refreshUserSubscription) {
+      this.refreshUserSubscription.unsubscribe();
+    }
   }
 
 }
